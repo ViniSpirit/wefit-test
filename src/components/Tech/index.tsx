@@ -1,11 +1,15 @@
 import React from "react"
 import { Container, DotIcon, Text } from "./styles"
 
-export default function Tech() {
+type Props = {
+  language: string
+}
+
+export default function Tech({ language }: Props) {
   return (
     <Container>
       <DotIcon />
-      <Text>Typescript</Text>
+      <Text>{language || "Desconhecido"}</Text>
     </Container>
   )
 }

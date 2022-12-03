@@ -1,12 +1,23 @@
 import React from "react"
-import { StatusBar } from "expo-status-bar"
-import { Container, Text } from "./styles"
+import { Container, ReposList } from "./styles"
+import CardRepository from "../../components/CardRepository"
+import { useRepositoryContext } from "../../context/RepositoryContext"
 
-export function Favorites() {
+type Props = {
+  navigation: any
+}
+
+export function Favorites({ navigation }: Props) {
+  const { favorites } = useRepositoryContext()
   return (
     <Container>
-      <StatusBar hidden />
-      <Text>Favorites</Text>
+      <ReposList
+        data={favorites}
+        renderItem={({ item }: any) => (
+          <CardRepository data={item} navigation={navigation} />
+        )}
+        keyExtractor={(item: any) => item.name}
+      />
     </Container>
   )
 }

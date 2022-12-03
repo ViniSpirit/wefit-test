@@ -1,18 +1,15 @@
 import styled from "styled-components/native"
 import { Entypo } from "@expo/vector-icons"
 
-type TitleProps = {
-  bold?: any
-}
-
 type TextProps = {
   m?: string
 }
 
-export const Container = styled.View`
+export const Container = styled.Pressable`
   background-color: ${({ theme }) => theme.colors.WHITE};
   padding: 12px 16px;
   border-radius: 4px;
+  margin: 16px 16px 0px 16px;
 `
 
 export const CardHeader = styled.View`
@@ -26,7 +23,7 @@ export const TitleView = styled.View`
   flex-direction: row;
 `
 
-export const Title = styled.Text<TitleProps>`
+export const Title = styled.Text<any>`
   font-size: 12px;
   font-family: ${({ theme, bold }) =>
     bold ? theme.fonts.BOLD : theme.fonts.REGULAR};

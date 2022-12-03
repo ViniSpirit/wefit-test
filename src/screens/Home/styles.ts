@@ -3,5 +3,5 @@ import styled from "styled-components/native"
 export const Container = styled.View`
   flex: 1;
   background: ${({ theme }) => theme.colors.BACKGROUND};
-  padding: 16px;
 `
+export const ReposList = styled.FlatList``

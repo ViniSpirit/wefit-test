@@ -15,30 +15,47 @@ import {
   StarIcon,
   StarsCount,
 } from "./styles"
+import {
+  Repository,
+  useRepositoryContext,
+} from "../../context/RepositoryContext"
 
 type Props = {
   noFavButton?: any
+  data: Repository
+  navigation: any
 }
 
-export default function CardRepository({ noFavButton }: Props) {
+export default function CardRepository({
+  data,
+  noFavButton,
+  navigation,
+}: Props) {
+  const [user, repoName] = data?.name.split(`/`)
+
+  const toDetails = () => {
+    navigation.navigate("Details")
+  }
+
+  const { addFavoriteRepository } = useRepositoryContext()
+
   return (
-    <Container style={theme.boxShadow}>
+    <Container style={theme.boxShadow} onPress={toDetails}>
       <CardHeader>
         <TitleView>
-          <Title>appswefit/</Title>
-          <Title bold>create-react-app</Title>
+          <Title>{user}/</Title>
+          <Title bold>{repoName}</Title>
         </TitleView>
         <Icon source={require("./icon.png")} />
       </CardHeader>
       <Divider />
       <Text m="16px 0" numberOfLines={2}>
-        Yarn Workspaces Monorepo support for Create-React-App / React-Scripts.
-        Yarn Workspaces Monorepo support for Create-React-App / React-Scripts.
+        {data.description}
       </Text>
 
       <CardFooter>
         {!noFavButton && (
-          <FavoriteButton>
+          <FavoriteButton onPress={() => addFavoriteRepository(data)}>
             <StarIcon />
             <TextButton>Favoritar</TextButton>
           </FavoriteButton>
@@ -46,9 +63,9 @@ export default function CardRepository({ noFavButton }: Props) {
 
         <StarsCount>
           <StarIcon />
-          <Text m="0 0 0 6px">0</Text>
+          <Text m="0 0 0 6px">{data.stars}</Text>
         </StarsCount>
-        <Tech />
+        <Tech language={data.language} />
       </CardFooter>
     </Container>
   )

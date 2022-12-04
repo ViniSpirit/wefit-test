@@ -8,6 +8,6 @@ export const Container = styled.View`
 export const Text = styled.Text`
   font-family: ${({ theme }) => theme.fonts.BOLD};
   font-size: 16px;
-  color: ${({ theme }) => theme.colors.RED};
+  color: ${({ theme }) => theme.colors.BLACK};
   text-align: center;
 `

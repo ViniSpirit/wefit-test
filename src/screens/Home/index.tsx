@@ -2,28 +2,34 @@ import React from "react"
 import CardRepository from "../../components/CardRepository"
 import ErrorMessage from "../../components/ErrorMEssage"
 import Loading from "../../components/Loading"
-import { useRepositoryContext } from "../../context/RepositoryContext"
+import {
+  Repository,
+  useRepositoryContext,
+} from "../../context/RepositoryContext"
 import { Container, ReposList } from "./styles"
+import { ListRenderItem } from "react-native"
+import { NavigationProps } from "../../routes/Stack.router"
 
-type Props = {
-  navigation: any
-}
+export function Home({ navigation }: NavigationProps) {
+  const { repositories, reposLoading, reposError, repositoryOwner } =
+    useRepositoryContext()
 
-export function Home({ navigation }: Props) {
-  const { repositories, reposLoading, reposError } = useRepositoryContext()
+  const renderItem: ListRenderItem<Repository> = ({ item }) => (
+    <CardRepository data={item} navigation={navigation} />
+  )
 
   return (
     <Container>
-      {reposError && <ErrorMessage message="Nenhum repositório encontrado" />}
+      {reposError && (
+        <ErrorMessage message={`Usuário inválido "${repositoryOwner}" `} />
+      )}
       {reposLoading ? (
         <Loading />
       ) : (
         <ReposList
           data={repositories}
-          renderItem={({ item }: any) => (
-            <CardRepository data={item} navigation={navigation} />
-          )}
-          keyExtractor={(item: any) => item.name}
+          renderItem={renderItem}
+          keyExtractor={(item: Repository) => item.id}
         />
       )}
     </Container>

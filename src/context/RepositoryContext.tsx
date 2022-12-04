@@ -24,6 +24,7 @@ type RepositoryContextData = {
   favorites: Repository[]
   addFavoriteRepository: (repository: Repository) => void
   removeFavoriteRepository: (repository: Repository) => void
+  repositoryOwner: string
 }
 
 const RepositoryContext = createContext<RepositoryContextData>(
@@ -114,6 +115,7 @@ export function RepositoryProvider({ children }: Children) {
         favorites,
         addFavoriteRepository,
         removeFavoriteRepository,
+        repositoryOwner,
       }}
     >
       {children}

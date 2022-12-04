@@ -19,11 +19,12 @@ import {
   Repository,
   useRepositoryContext,
 } from "../../context/RepositoryContext"
+import { NavigationProps } from "../../routes/Stack.router"
 
 type Props = {
   noFavButton?: any
   data: Repository
-  navigation: any
+  navigation: NavigationProps["navigation"]
 }
 
 export default function CardRepository({
@@ -34,9 +35,7 @@ export default function CardRepository({
   const [user, repoName] = data?.name.split(`/`)
 
   const toDetails = () => {
-    navigation.navigate("Detalhes", {
-      user: user,
-      repoName: repoName,
+    navigation.navigate("Details", {
       ...data,
     })
   }

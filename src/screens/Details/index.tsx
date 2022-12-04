@@ -1,15 +1,14 @@
 import React, { useState } from "react"
-import DetailCard, { RepositoryInfo } from "../../components/CardDetail"
+import DetailCard from "../../components/CardDetail"
 import FavoriteButton from "../../components/FavoriteButton"
 import Link from "../../components/Link"
 import { useRepositoryContext } from "../../context/RepositoryContext"
 import { ButtonsView, Container } from "./styles"
 import * as Linking from "expo-linking"
+import { NavigationProps } from "../../routes/Stack.router"
 
 type Props = {
-  route: {
-    params: any
-  }
+  route: NavigationProps["route"]
 }
 
 export default function Details({ route }: Props) {

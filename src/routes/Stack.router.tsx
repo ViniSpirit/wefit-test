@@ -1,9 +1,24 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack"
+import {
+  createNativeStackNavigator,
+  NativeStackScreenProps,
+} from "@react-navigation/native-stack"
+import { Repository } from "../context/RepositoryContext"
 import Details from "../screens/Details"
 import theme from "../theme"
 import BottomRouter from "./Bottom.router"
 
-const Stack = createNativeStackNavigator()
+export type StackRootParamList = {
+  BottomRouter: undefined
+  Details: Repository
+}
+
+export type NavigationProps = NativeStackScreenProps<
+  StackRootParamList,
+  "Details",
+  "BottomRouter"
+>
+
+const Stack = createNativeStackNavigator<StackRootParamList>()
 
 export default function StackRouter() {
   return (
@@ -14,13 +29,14 @@ export default function StackRouter() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Detalhes"
+        name="Details"
         component={Details}
         options={{
           headerStyle: {
             backgroundColor: theme.colors.BLACK,
           },
           headerTintColor: theme.colors.WHITE,
+          title: "Detalhes",
         }}
       />
     </Stack.Navigator>

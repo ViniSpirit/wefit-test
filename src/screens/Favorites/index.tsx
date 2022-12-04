@@ -1,23 +1,26 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { Container, ReposList } from "./styles"
 import CardRepository from "../../components/CardRepository"
-import { useRepositoryContext } from "../../context/RepositoryContext"
+import {
+  Repository,
+  useRepositoryContext,
+} from "../../context/RepositoryContext"
+import { ListRenderItem } from "react-native"
+import { NavigationProps } from "../../routes/Stack.router"
 
-type Props = {
-  navigation: any
-}
-
-export function Favorites({ navigation }: Props) {
+export function Favorites({ navigation }: NavigationProps) {
   const { favorites } = useRepositoryContext()
+
+  const renderItem: ListRenderItem<Repository> = ({ item }) => (
+    <CardRepository data={item} navigation={navigation} noFavButton />
+  )
 
   return (
     <Container>
       <ReposList
         data={favorites}
-        renderItem={({ item }: any) => (
-          <CardRepository data={item} navigation={navigation} noFavButton />
-        )}
-        keyExtractor={(item: any) => item.name}
+        renderItem={renderItem}
+        keyExtractor={(item: Repository) => item.id}
       />
     </Container>
   )

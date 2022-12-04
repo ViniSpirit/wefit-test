@@ -34,7 +34,11 @@ export default function CardRepository({
   const [user, repoName] = data?.name.split(`/`)
 
   const toDetails = () => {
-    navigation.navigate("Details")
+    navigation.navigate("Detalhes", {
+      user: user,
+      repoName: repoName,
+      ...data,
+    })
   }
 
   const { addFavoriteRepository } = useRepositoryContext()

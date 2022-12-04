@@ -9,7 +9,7 @@ export const Container = styled.Pressable`
   background-color: ${({ theme }) => theme.colors.WHITE};
   padding: 12px 16px;
   border-radius: 4px;
-  margin: 16px 16px 0px 16px;
+  margin: 8px 16px;
 `
 
 export const CardHeader = styled.View`

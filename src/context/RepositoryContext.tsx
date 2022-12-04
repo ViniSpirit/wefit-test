@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react"
 import UserSelectionModal from "../components/UserSelectionModal"
 import useGetUserRepositories from "../hooks/useGetUserRepositories"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 type Children = { children: JSX.Element }
 
@@ -22,6 +23,7 @@ type RepositoryContextData = {
   reposError: boolean
   favorites: Repository[]
   addFavoriteRepository: (repository: Repository) => void
+  removeFavoriteRepository: (repository: Repository) => void
 }
 
 const RepositoryContext = createContext<RepositoryContextData>(
@@ -37,10 +39,40 @@ export function RepositoryProvider({ children }: Children) {
 
   const setUser = (user: string) => setRepositoryOwner(user)
 
+  const getStorageData = async () => {
+    const value = await AsyncStorage.getItem("@favorites")
+    if (value !== null) {
+      const jsonValue = JSON.parse(value)
+      setFavorites(jsonValue)
+    }
+  }
+
+  const saveStorageData = async (data: Repository[]) => {
+    const jsonValue = JSON.stringify(data)
+    await AsyncStorage.setItem("@favorites", jsonValue)
+  }
+
   const addFavoriteRepository = async (repository: Repository) => {
-    setFavorites((prev) => [...prev, repository])
+    const newRepository = { ...repository, favorite: true }
+    const isFavoriteAlredy = favorites.find((item) => item.id == repository.id)
+    if (!isFavoriteAlredy) {
+      setFavorites((prev) => {
+        saveStorageData([...prev, newRepository])
+        return [...prev, newRepository]
+      })
+    }
     const newRepos = repositories.filter((item) => item.id !== repository.id)
     setRepositories(newRepos)
+  }
+
+  const removeFavoriteRepository = async (repository: Repository) => {
+    const removeRepoFromFavorites = favorites.filter(
+      (item) => item.id !== repository.id
+    )
+    setFavorites((prev) => {
+      saveStorageData(removeRepoFromFavorites)
+      return removeRepoFromFavorites
+    })
   }
 
   const { getUserRepositories, reposLoading, reposError } =
@@ -59,6 +91,7 @@ export function RepositoryProvider({ children }: Children) {
               stars: item.stargazers_count,
               language: item.language,
               url: item.html_url,
+              favorite: false,
             }
           })
           setRepositories(repos)
@@ -66,6 +99,10 @@ export function RepositoryProvider({ children }: Children) {
       })
     }
   }, [repositoryOwner])
+
+  useEffect(() => {
+    getStorageData()
+  }, [])
 
   return (
     <RepositoryContext.Provider
@@ -76,6 +113,7 @@ export function RepositoryProvider({ children }: Children) {
         reposError,
         favorites,
         addFavoriteRepository,
+        removeFavoriteRepository,
       }}
     >
       {children}

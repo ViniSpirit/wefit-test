@@ -14,6 +14,7 @@ export const Container = styled(Modalize).attrs({
 export const Text = styled.Text`
   font-family: ${({ theme }) => theme.fonts.REGULAR};
   font-size: 16px;
+  margin-top: 16px;
   color: ${({ theme }) => theme.colors.BLACK};
 `
 

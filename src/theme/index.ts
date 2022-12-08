@@ -5,7 +5,7 @@ export default {
     LIGHT_PRIMARY: "#FAF3DC",
     FONT: "#000000",
     DIVIDER: "#DADADA",
-
+    INPUT_BG: "#e8e6e6",
     GRAY: "#9A9A9A",
     BLACK: "#000000",
     WHITE: "#FFFFFF",

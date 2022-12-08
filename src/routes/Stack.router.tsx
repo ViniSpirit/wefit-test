@@ -2,6 +2,8 @@ import {
   createNativeStackNavigator,
   NativeStackScreenProps,
 } from "@react-navigation/native-stack"
+import { Text } from "react-native"
+import BackHeader from "../components/BackHeader"
 import { Repository } from "../context/RepositoryContext"
 import Details from "../screens/Details"
 import theme from "../theme"
@@ -22,7 +24,14 @@ const Stack = createNativeStackNavigator<StackRootParamList>()
 
 export default function StackRouter() {
   return (
-    <Stack.Navigator initialRouteName="BottomRouter">
+    <Stack.Navigator
+      initialRouteName="BottomRouter"
+      screenOptions={{
+        header: ({ navigation, options }) => (
+          <BackHeader navigation={navigation} title={options.title} />
+        ),
+      }}
+    >
       <Stack.Screen
         name="BottomRouter"
         component={BottomRouter}

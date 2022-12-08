@@ -42,6 +42,8 @@ export default function CardRepository({
 
   const { addFavoriteRepository } = useRepositoryContext()
 
+  console.log()
+
   return (
     <Container style={theme.boxShadow} onPress={toDetails}>
       <CardHeader>
@@ -49,7 +51,7 @@ export default function CardRepository({
           <Title>{user}/</Title>
           <Title bold>{repoName}</Title>
         </TitleView>
-        <Icon source={require("./icon.png")} />
+        <Icon source={{ uri: data.owner.avatar_url }} />
       </CardHeader>
       <Divider />
       <Text m="16px 0" numberOfLines={2}>

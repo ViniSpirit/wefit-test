@@ -12,6 +12,7 @@ export default function MyInput({ onChangeText, label }: Props) {
     <TextInput
       label={label}
       activeUnderlineColor={theme.colors.BLUE}
+      style={{ backgroundColor: theme.colors.INPUT_BG }}
       textColor={theme.colors.BLACK}
       onChangeText={onChangeText}
     />

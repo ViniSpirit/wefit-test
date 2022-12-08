@@ -2,7 +2,7 @@ import RepoHttpService from "../config/service"
 import { useState } from "react"
 
 type GetRepository = {
-  getUserRepositories: () => any
+  getUserRepositories: (user: string) => any
   reposLoading: boolean
   reposError: boolean
 }
@@ -15,11 +15,10 @@ export default function useGetUserRepositories<GetRepository>() {
     try {
       setReposError(false)
       setReposLoading(true)
-      const res = await RepoHttpService.get(user)
-      return res.data
+      const { data } = await RepoHttpService.get(user)
+      return data
     } catch (e) {
       setReposError(true)
-      return []
     } finally {
       setReposLoading(false)
     }

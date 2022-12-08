@@ -1,7 +1,7 @@
 import styled from "styled-components/native"
 import { Repository } from "../../context/RepositoryContext"
 
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
   flex: 1;
   background: ${({ theme }) => theme.colors.BACKGROUND};
 `

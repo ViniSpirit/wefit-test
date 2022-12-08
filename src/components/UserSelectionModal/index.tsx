@@ -8,10 +8,10 @@ import { Container, Text, BtnView, InputView } from "./styles"
 type Props = {
   visible: boolean
   onClose: () => void
-  setUser: (user: string) => void
+  action: (text: string) => void
 }
 
-const UserSelectionModal = ({ visible, onClose, setUser }: Props) => {
+const UserSelectionModal = ({ visible, onClose, action }: Props) => {
   const { ref, open, close } = useModalize()
 
   const [githubUser, setGithubUser] = useState("")
@@ -24,8 +24,8 @@ const UserSelectionModal = ({ visible, onClose, setUser }: Props) => {
     close()
   }
 
-  const saveUser = () => {
-    setUser(githubUser)
+  const onSave = () => {
+    action(githubUser)
     close()
   }
 
@@ -48,7 +48,7 @@ const UserSelectionModal = ({ visible, onClose, setUser }: Props) => {
           color={theme.colors.BLUE}
           onPress={handleClose}
         />
-        <MyButton title="SALVAR" onPress={saveUser} />
+        <MyButton title="SALVAR" onPress={onSave} />
       </BtnView>
     </Container>
   )

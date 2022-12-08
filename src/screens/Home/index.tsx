@@ -20,9 +20,14 @@ export function Home({ navigation }: NavigationProps) {
 
   return (
     <Container>
+      {repositories.length === 0 && !reposLoading && (
+        <ErrorMessage message={`Repositório vazio`} />
+      )}
+
       {reposError && (
         <ErrorMessage message={`Usuário inválido "${repositoryOwner}" `} />
       )}
+
       {reposLoading ? (
         <Loading />
       ) : (

@@ -34,6 +34,7 @@ export const Title = styled.Text<any>`
 export const Icon = styled.Image`
   width: 29px;
   height: 29px;
+  border-radius: 50px;
 `
 
 export const Divider = styled.View`
